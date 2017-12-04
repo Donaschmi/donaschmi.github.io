@@ -3,14 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Maze Solver | Blog de Donatien Schmitz</title>
+  <title>Sortir d&#39;un labyrinthe? | Blog de Donatien Schmitz</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="On connait tous la fameuse technnique de si je longe un mur j’arriverais forcément à la sortie non? Eh bien oui mais aujourd’hui je vais m’attaquer à ce problèm">
+  <meta name="description" content="On connait tous la fameuse technnique pour sortir d’un labyrinthe du si je longe un mur j’arriverais forcément à la sortie non? Eh bien oui mais aujourd’hui je ">
+<meta name="keywords" content="labyrinthe,maze,Dijkstra,Python,graphe">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Maze Solver">
+<meta property="og:title" content="Sortir d&#39;un labyrinthe?">
 <meta property="og:url" content="donaschmitz.com/2017/11/27/Maze-Solver/index.html">
 <meta property="og:site_name" content="Blog de Donatien Schmitz">
-<meta property="og:description" content="On connait tous la fameuse technnique de si je longe un mur j’arriverais forcément à la sortie non? Eh bien oui mais aujourd’hui je vais m’attaquer à ce problème sous un différent angle :  Trouver le">
+<meta property="og:description" content="On connait tous la fameuse technnique pour sortir d’un labyrinthe du si je longe un mur j’arriverais forcément à la sortie non? Eh bien oui mais aujourd’hui je vais m’attaquer à ce problème sous un di">
 <meta property="og:locale" content="fr">
 <meta property="og:image" content="/images/2017/maze/Maze.png">
 <meta property="og:image" content="/images/2017/maze/Node1.png">
@@ -20,14 +21,17 @@
 <meta property="og:image" content="/images/2017/maze/Node6.png">
 <meta property="og:image" content="/images/2017/maze/Node7.png">
 <meta property="og:image" content="/images/2017/maze/Maze2.png">
-<meta property="og:updated_time" content="2017-11-30T08:34:16.882Z">
+<meta property="og:image" content="/images/2017/maze/MazeLT.png">
+<meta property="og:updated_time" content="2017-12-01T19:17:18.156Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Maze Solver">
-<meta name="twitter:description" content="On connait tous la fameuse technnique de si je longe un mur j’arriverais forcément à la sortie non? Eh bien oui mais aujourd’hui je vais m’attaquer à ce problème sous un différent angle :  Trouver le">
+<meta name="twitter:title" content="Sortir d&#39;un labyrinthe?">
+<meta name="twitter:description" content="On connait tous la fameuse technnique pour sortir d’un labyrinthe du si je longe un mur j’arriverais forcément à la sortie non? Eh bien oui mais aujourd’hui je vais m’attaquer à ce problème sous un di">
 <meta name="twitter:image" content="/images/2017/maze/Maze.png">
   
     <link rel="alternate" href="/atom.xml" title="Blog de Donatien Schmitz" type="application/atom+xml">
   
+  
+    <link rel="icon" href="/css/images/Logo.ico">
   
   
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
@@ -95,7 +99,7 @@
     
   
     <h1 class="article-title" itemprop="name">
-      Maze Solver
+      Sortir d&#39;un labyrinthe?
     </h1>
   
 
@@ -115,13 +119,15 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>On connait tous la fameuse technnique de <em>si je longe un mur j’arriverais forcément à la sortie non?</em></p>
+        <p>On connait tous la fameuse technnique pour sortir d’un labyrinthe du <em>si je longe un mur j’arriverais forcément à la sortie non?</em></p>
 <p>Eh bien oui mais aujourd’hui je vais m’attaquer à ce problème sous un différent angle :</p>
 <blockquote>
 <p>Trouver le chemin le plus court dans un labyrinthe.</p>
 </blockquote>
 <p>Pour cela il y’a un merveilleux chapitre des mathématiques discrètes qui se consacre à ce genre de question : <a href="https://fr.wikipedia.org/wiki/Théorie_des_graphes" target="_blank" rel="noopener">la théorie des graphes</a></p>
 <p>Le but de cet article sera donc de créer un programme permettant de résoudre n’importe quel labyrinthe respectant les regles enoncées ci-dessous. Si ce labyrinthe a plusieurs solutions, alors le chemin choisi sera <strong>le plus court</strong>!</p>
+<details><br>  <summary>Plus d’infos sur la recherche du chemin le plus court </summary> L’algorithme le plus connu pour rechercher le chemin le plus court entre deux noeuds est bien entendu l’<a href="https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstra" target="_blank" rel="noopener">algorithme de Dijkstra</a>.<br>  Dans mon cas je vais implémenter celui-ci ainsi que l’<a href="https://fr.wikipedia.org/wiki/Algorithme_A*" target="_blank" rel="noopener">algorithme A*</a>.<br></details>
+
 <h2 id="Regles"><a href="#Regles" class="headerlink" title="Règles"></a>Règles</h2><p>Pour que mon programme fonctionne correctement, il faut qu’un certain nombre de règles soient respectées.</p>
 <ul>
 <li>Le labyrinthe est <strong>entouré</strong> entièrement <strong>de mur</strong> sauf pour l’entrée et la sortie.</li>
@@ -131,7 +137,7 @@
 <p>Maintenant que les regles sont bien établies, voila à quoi ressemblerait par exemple un simple labyrinthe de dimension 10 x 10</p>
 <p><a href="/images/2017/maze/Maze.png = 100x"><img src="/images/2017/maze/Maze.png" alt="Un simple labyrinthe de dimension 10 x 10"></a> <!-- .element height="50%" width="50%" --><br>Bon evidemment il est facile de trouver la solution de ce labyrinthe à l’oeil nu mais avec des dimensions comme 1000 x 1000 on est bien content d’avoir un programme qui le résout en temps record!</p>
 <h2 id="Mise-en-place"><a href="#Mise-en-place" class="headerlink" title="Mise en place"></a>Mise en place</h2><p>Ma première intuition a été de définir chaque case blanche, ou chemin, comme étant un noeud d’un graphe. Deux chemins adjacents seraient donc liés.</p>
-<p>Et là je me suis dit : <em>M’enfin c’est complêtement c*n, si il y’a une ligne droite de 1000 cases blanches pourquoi ne pas faire deux noeuds aux extrémités et un lien entre les deux?</em></p>
+<p><em>M’enfin c’est complêtement c*n, si il y’a une ligne droite de 1000 cases blanches pourquoi ne pas faire deux noeuds aux extrémités et un lien entre les deux?</em></p>
 <p>C’est donc ce que j’ai fait pour obtenir quelque chose qui ressemble à ca :</p>
 <p><a href="/images/2017/maze/Node1.png = 100x"><img src="/images/2017/maze/Node1.png" alt="Methode naïve"></a> <a href="/images/2017/maze/Node2.png = 100x"><img src="/images/2017/maze/Node2.png" alt="Methode intelligente"></a></p>
 <p>De cette manière on réduit grandement la mémoire allouée par le programme et le temps d’execution!</p>
@@ -142,7 +148,7 @@
 <li><em>Si je suis sur un mur, je ne fais rien.</em> C’est logique je ne veux pas traverser un mur ce serait de la triche!</li>
 <li><em>Si je suis sur un chemin.</em> Alors la il y’a plusieurs chosers à vérifier…<ul>
 <li><em>Si la case à gauche est un mur et celle de droite un mur également.</em> Alors on regarde les cases du dessus et du dessous.<ul>
-<li><em>Si seulement l’une d’elles est un mur,</em> on est dans un coin et on ajoute donc un noeud.<br><a href="/images/2017/maze/Node4.png = 100x"><img src="/images/2017/maze/Node4.png" alt="Mur - chemin - chemin"></a></li>
+<li><em>Si seulement l’une d’elles est un mur,</em> on est dans un cul-de-sac et on ajoute donc un noeud.<br><a href="/images/2017/maze/Node4.png = 100x"><img src="/images/2017/maze/Node4.png" alt="Mur - chemin - mur"></a></li>
 <li><em>Si les deux sont des chemins</em>, on est dans la continuité d’un chemin et on ne fait rien.<br><a href="/images/2017/maze/Node3.png = 100x"><img src="/images/2017/maze/Node3.png" alt="Mur - chemin - mur"></a></li>
 <li><em>Si les deux sont des murs,</em> evidemment ca ne mène à rien et on basarde cette case!</li>
 </ul>
@@ -150,6 +156,7 @@
 <li><em>Si j’ai un mur à gauche et un chemin à droite, ou l’inverse,</em> on rajoute un noeud.<br><a href="/images/2017/maze/Node6.png = 100x"><img src="/images/2017/maze/Node6.png" alt="Mur - chemin - chemin"></a></li>
 <li><em>Si j’ai un chemin à droite et à gauche,</em> je regarde de nouveau les cases au dessus et en dessous.<ul>
 <li><em>S’il y a au moins un chemin en haut ou en bas,</em> alors c’est un noeud!<br><a href="/images/2017/maze/Node7.png = 100x"><img src="/images/2017/maze/Node7.png" alt="Chemin - chemin - chemin"></a></li>
+<li><em>Si il a un mur au dessus et en dessous alors c’est la continuité d’un chemin on ne fait rien.</em></li>
 </ul>
 </li>
 </ul>
@@ -158,6 +165,16 @@
 <p><em>Ouf ca y’est on a fait tous les cas possible!</em></p>
 <p>On peut maintenant compléter notre labyrinthe de base.</p>
 <p><a href="/images/2017/maze/Maze2.png = 100x"><img src="/images/2017/maze/Maze2.png" alt="Labyrinthe avec chaque noeud"></a></p>
+<details><br>  <summary>Plus d’infos sur le stockage de ces noeuds</summary> Afin de stocker ces noeuds de manières efficaces, j’ai décidé d’utiliser la structure de données la suivante : le <a href="https://fr.wikipedia.org/wiki/Tas_de_Fibonacci" target="_blank" rel="noopener">tas de Fibonnaci</a>.<br>  Je ne vais pas m’attarder sur son fonctionnement et son implementation et je vais juste utiliser une implémentation trouvée sur Github!<br>  L’utilisation de cette structure de données permet un temps d’éxecution plus rapide de l’algorithme de Dijkstra.<br><br></details>
+
+
+<p>L’implémentation permettant de créer un labyrinthe à partir d’une image est disponible <a href="https://github.com/Donaschmi/Maze-Solving/blob/master/mazes.py" target="_blank" rel="noopener">ici</a>.</p>
+<h2 id="Resolution"><a href="#Resolution" class="headerlink" title="Résolution"></a>Résolution</h2><p>Bien! Maintenant que ca c’est fait on va pouvoir passer au moment “fun”, <strong>trouver la solution à ce labyrinthe</strong>.</p>
+<p>Comme dit au début, la manière instinctive serait de longer un mur jusqu’à, on l’espère, trouver la sortie.</p>
+<p>Voici à quoi ressemblerait le chemin si on décide de longer le mur à sa gauche en commencant au noeud <strong>start</strong>.</p>
+<p><a href="/images/2017/maze/MazeLT.png = 100x"><img src="/images/2017/maze/MazeLT.png" alt="Resolution du LeftTurn"></a></p>
+<p>Ce qui n’est évidemment pas optimisé et c’est pour ca que nous allons voir cet autre moyen de trouver la solution!</p>
+<h3 id="Algorithme-de-Dijkstra"><a href="#Algorithme-de-Dijkstra" class="headerlink" title="Algorithme de Dijkstra"></a>Algorithme de Dijkstra</h3><p>Le nom fait peur je sais…</p>
 
       
     </div>
@@ -168,16 +185,30 @@
     
 
     <footer class="article-footer">
-      <a data-url="donaschmitz.com/2017/11/27/Maze-Solver/" data-id="cjam850ct0000c767xc4kjp6k" class="article-share-link">
+      <a data-url="donaschmitz.com/2017/11/27/Maze-Solver/" data-id="cjam8hk1m0001cv67eb9r1axk" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dijkstra/">Dijkstra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/graphe/">graphe</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/labyrinthe/">labyrinthe</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maze/">maze</a></li></ul>
+
 
     </footer>
   </div>
   
     
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2017/11/27/Hello-World/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">Hello World !</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
 
   
 </article>
@@ -199,14 +230,26 @@
 
 
   
+  <div class="sidebar-module">
+    <h4>Tags</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Dijkstra/">Dijkstra</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Python/">Python</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/first/">first</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/graphe/">graphe</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/hello/">hello</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/labyrinthe/">labyrinthe</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/maze/">maze</a><span class="sidebar-module-list-count">1</span></li></ul>
+  </div>
+
 
 
   
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/tags/Dijkstra/" style="font-size: 10px;">Dijkstra</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/first/" style="font-size: 10px;">first</a> <a href="/tags/graphe/" style="font-size: 10px;">graphe</a> <a href="/tags/hello/" style="font-size: 10px;">hello</a> <a href="/tags/labyrinthe/" style="font-size: 10px;">labyrinthe</a> <a href="/tags/maze/" style="font-size: 10px;">maze</a>
+    </p>
+  </div>
+
 
   
   <div class="sidebar-module">
     <h4>Archives</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/11/">novembre 2017</a><span class="sidebar-module-list-count">1</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/11/">novembre 2017</a><span class="sidebar-module-list-count">2</span></li></ul>
   </div>
 
 
@@ -217,7 +260,11 @@
     <ul class="sidebar-module-list">
       
         <li>
-          <a href="/2017/11/27/Maze-Solver/">Maze Solver</a>
+          <a href="/2017/11/27/Maze-Solver/">Sortir d&#39;un labyrinthe?</a>
+        </li>
+      
+        <li>
+          <a href="/2017/11/27/Hello-World/">Hello World !</a>
         </li>
       
     </ul>
