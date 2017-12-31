@@ -4,12 +4,14 @@ var count = 0
 var rows
 var cols
 var gridOn = true
+var gridStart
 
 function setup() {
     createCanvas(400, 400);
     rows = width / res
     cols = height / res
     grid = create2DArray()
+    gridStart = create2DArray()
     var button = createButton('Next generation')
     button.position(410, 400)
     button.mousePressed(update)
@@ -17,12 +19,22 @@ function setup() {
     var reset = createButton('Reset')
     reset.position(410, 430)
     reset.mousePressed(resetGrid)
+
+    var restart = createButton('Restart this colony')
+    restart.position(530, 400)
+    restart.mousePressed(startAgain)
     slider = createSlider(1, 10)
 }
 
 function resetGrid(){
     gridOn = true
     grid = create2DArray()
+    frameRate(30)
+}
+
+function startAgain(){
+    gridOn = true
+    grid = gridStart
     frameRate(30)
 }
 
@@ -54,6 +66,9 @@ function mouseClicked(){
 }
 
 function update(){
+    if(gridOn){
+        gridStart = grid
+    }
     gridOn = false
     next = create2DArray()
     for(var i = 0; i < cols ; i++){
