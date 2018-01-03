@@ -83,56 +83,6 @@
         <div class="col-sm-8 blog-main">
           
   
-    <article id="post-Game-of-Life" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/02/Game-of-Life/">Game of Life</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2018/01/02/Game-of-Life/" class="article-date"><time datetime="2018-01-02T20:33:05.000Z" itemprop="datePublished">2018-01-02</time></a>
-</div>
-
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      <a data-url="donaschmitz.com/2018/01/02/Game-of-Life/" data-id="cjby3d3di0000122fn5sv2dx6" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
     <article id="post-Maze-Solver2" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -164,10 +114,10 @@
 <blockquote>
 <p>Un ensemble de villes reliées par des routes.</p>
 </blockquote>
-<p>Dans cet exemple, cet ensemble sera <em>le graphe</em>, les villes seront <em>les noeuds</em> le composant et les routes seront des <em>arcs</em> reliant certaines villes entre-elles.</p>
+<p>Dans cet exemple, cet ensemble sera <em>le graphe</em>, les villes seront <em>les noeuds</em> le composant et les routes seront des <em>arcs</em> reliant certaines villes entre elles.</p>
 <p>On va voir maintenant comment cela fonctionne avec l’exemple de Wikipedia!</p>
 <p><a href="/images/2017/maze/Example.png = 100x"><img src="/images/2017/maze/Example.png" alt="Un ensemble de villes reliées par des routes"></a></p>
-<p>Chaque ville est dénotée par une lettre et les chiffres sur les routes les reliants sont le nombre de kilomètres à parcourir entre chacunes.</p>
+<p>Chaque ville est dénotée par une lettre et les chiffres sur les routes les reliant sont le nombre de kilomètres à parcourir entre chacune.</p>
 <p>Par exemple si je veux aller de <strong>a</strong> à <strong>b</strong> je peux soit prendre la route directe qui est de 14 kilomètres OU passer par <strong>c</strong> ce qui fait un trajet total de <em>9+2=11</em>.</p>
 <p>Comme quoi le trajet direct n’est pas toujours le plus court!</p>
 <h2 id="Resolution-de-l’exemple"><a href="#Resolution-de-l’exemple" class="headerlink" title="Résolution de l’exemple"></a>Résolution de l’exemple</h2><p>Essayons de trouver le chemin le plus court pour aller de <strong>a</strong>, en vert, à <strong>e</strong>, en rouge.</p>
@@ -175,13 +125,13 @@
 <ol>
 <li><p>On donne à chaque ville une distance initiale par rapport à la ville de départ. Une distance de <strong>0</strong> à notre ville de départ (dans ce cas <strong>a</strong>) et une distance infinie aux autres villes. <a href="/images/2017/maze/Example1.png = 100x"><img src="/images/2017/maze/Example1.png" alt="Schéma initial avec les distances totales mises en rouge"></a></p>
 </li>
-<li><p>On note la ville de départ <strong>a</strong> comme étant la ville actuelle et on met toutes les villes dans un tas qui s’appellera “<em>villes non-visitées</em>“. Une fois une ville visitée, on l’enlève de ce tas. Le tas actuel comprends donc les villes <strong>a</strong>, <strong>b</strong>, <strong>c</strong>, <strong>d</strong>, <strong>e</strong> et <strong>f</strong></p>
+<li><p>On note la ville de départ <strong>a</strong> comme étant la ville actuelle et on met toutes les villes dans un tas qui s’appellera “<em>villes non visitées</em>“. Une fois une ville visitée, on l’enlève de ce tas. Le tas actuel comprend donc les villes <strong>a</strong>, <strong>b</strong>, <strong>c</strong>, <strong>d</strong>, <strong>e</strong> et <strong>f</strong></p>
 </li>
-<li><p>On va regarder toutes les villes voisines de <strong>a</strong> et calculer la distance entre <strong>a</strong> et ces villes. Pour chaque route, la distance totale est égale à la distance de <strong>a</strong>, <strong>0</strong> plus la route les séparant. <strong>b</strong> a une distance de <strong>0 + 14</strong> , <strong>c</strong> une distance de <strong>0 + 9</strong> et <strong>d</strong> une distance de <strong>0 + 7</strong>.  Pour toutes ces nouvelles distances, on va vérifier si la distance calculée est plus distance que la distance qui était attribuée à la ville auparavant. Dans ce cas, les distances précédentes étaient toutes infinies et on mets donc toutes les distances des villes par rapport à <strong>a</strong> à jours. <a href="/images/2017/maze/Example2.png = 100x"><img src="/images/2017/maze/Example2.png" alt="Schéma initial avec les distances mises à jours"></a></p>
+<li><p>On va regarder toutes les villes voisines de <strong>a</strong> et calculer la distance entre <strong>a</strong> et ces villes. Pour chaque route, la distance totale est égale à la distance de <strong>a</strong>, <strong>0</strong> plus la route les séparant. <strong>b</strong> a une distance de <strong>0 + 14</strong> , <strong>c</strong> une distance de <strong>0 + 9</strong> et <strong>d</strong> une distance de <strong>0 + 7</strong>.  Pour toutes ces nouvelles distances, on va vérifier si la distance calculée est plus élevée que la distance qui était attribuée à la ville auparavant. Dans ce cas, les distances précédentes étaient toutes infinies et on met donc toutes les distances des villes par rapport à <strong>a</strong> à jour. <a href="/images/2017/maze/Example2.png = 100x"><img src="/images/2017/maze/Example2.png" alt="Schéma initial avec les distances mises à jours"></a></p>
 </li>
-<li><p>Maintenant qu’on a fait tous les voisins de <strong>a</strong>, on va marquer cette ville comme étant visitée et la retirer du tas de “<em>villes non-visitiées</em>“</p>
+<li><p>Maintenant qu’on a fait tous les voisins de <strong>a</strong>, on va marquer cette ville comme étant visitée et la retirer du tas de “<em>villes non visitées</em>“</p>
 </li>
-<li><p>On va choisir la ville dans le tas de “<em>villes non-visitiées</em>“ ayant la plus petite distance comme étant la ville actuelle. Si cette ville est la destination, alors parfait on a trouvé le chemin le plus court! Sinon on recommence depuis l’étape 3 avec notre nouvelle ville! <details><br><summary>Pour la résolution étape par étape de l’exemple c’est par ici!</summary>6. La ville actuelle est <strong>d</strong> avec une distance de <strong>7</strong>. Cette ville a une route vers <strong>c</strong> de distance 10 et vers <strong>f</strong> de distance 15. On regarde si la nouvelle distance vers <strong>c</strong> est plus petite que sa distance précédente. <strong>7 + 10 = 17</strong>, c’est plus grand et on ne fait donc rien. En revanche vers <strong>f</strong> on obtient <strong>7 + 15 = 22</strong> et comme c’est plus petit que l’infini, on met la distance à jours. On marque <strong>d</strong> comme étant visitée et on la retire du tas.<a href="/images/2017/maze/Example3.png = 100x"><img src="/images/2017/maze/Example3.png" alt="Mise à jours des voisins de d"></a>8. Le tas comprends donc maintenant les villes <strong>b</strong>, <strong>c</strong>, <strong>e</strong> et <strong>f</strong>. La ville actuelle est maintenant <strong>c</strong> avec une distance de <strong>9</strong>. En regardant ses voisins on voit qu’on peut améliorer la distance de <strong>b</strong> en passant par <strong>c</strong>. Cette distance devient donc <strong>9 + 2 = 11</strong>. Pareil vers <strong>f</strong> on obtient une distance de <strong>9 + 1 = 20</strong>. On peut marquer <strong>c</strong> comme étant visitée et on la retire du tas. <a href="/images/2017/maze/Example4.png = 100x"><img src="/images/2017/maze/Example4.png" alt="Mise à jours des voisins de c"></a>9. Le tas comprends donc maintenant les villes <strong>b</strong>, <strong>e</strong> et <strong>f</strong>. La ville actuelle est <strong>b</strong> avec une distance de <strong>11</strong>. Elle n’a qu’une seule voisine non-visitée, <strong>e</strong> qui se trouve à une distance de <strong>9</strong> de <strong>b</strong>. Comme <strong>11 + 9 = 20</strong> est plus petit que l’infini, on met la distance de <strong>e</strong> à jours. On marque <strong>b</strong> comme étant visitée et on la retire du tas.<br><img src="/images/2017/maze/blank.png" alt="">10. Le tas ne comporte plus que les villes <strong>e</strong> et <strong>f</strong>. La ville actuelle est désormais <strong>e</strong>. Comme on a comme ville actuelle notre destination, cela veut dire que l’on a trouvé le chemin le plus court!.<br></details><br><a href="/images/2017/maze/Example5.png = 100x"><img src="/images/2017/maze/Example5.png" alt="Chemin le plus court de notre exemple"></a></p>
+<li><p>On va choisir la ville dans le tas de “<em>villes non visitées</em>“ ayant la plus petite distance comme étant la ville actuelle. Si cette ville est la destination, alors parfait on a trouvé le chemin le plus court! Sinon on recommence depuis l’étape 3 avec notre nouvelle ville! <details><br><summary>Pour la résolution étape par étape de l’exemple c’est par ici!</summary>6. La ville actuelle est <strong>d</strong> avec une distance de <strong>7</strong>. Cette ville a une route vers <strong>c</strong> de distance 10 et vers <strong>f</strong> de distance 15. On regarde si la nouvelle distance vers <strong>c</strong> est plus petite que sa distance précédente. <strong>7 + 10 = 17</strong>, c’est plus grand et on ne fait donc rien. En revanche vers <strong>f</strong> on obtient <strong>7 + 15 = 22</strong> et comme c’est plus petit que l’infini, on met la distance à jours. On marque <strong>d</strong> comme étant visitée et on la retire du tas.<a href="/images/2017/maze/Example3.png = 100x"><img src="/images/2017/maze/Example3.png" alt="Mise à jours des voisins de d"></a>8. Le tas comprends donc maintenant les villes <strong>b</strong>, <strong>c</strong>, <strong>e</strong> et <strong>f</strong>. La ville actuelle est maintenant <strong>c</strong> avec une distance de <strong>9</strong>. En regardant ses voisins on voit qu’on peut améliorer la distance de <strong>b</strong> en passant par <strong>c</strong>. Cette distance devient donc <strong>9 + 2 = 11</strong>. Pareil vers <strong>f</strong> on obtient une distance de <strong>9 + 1 = 20</strong>. On peut marquer <strong>c</strong> comme étant visitée et on la retire du tas. <a href="/images/2017/maze/Example4.png = 100x"><img src="/images/2017/maze/Example4.png" alt="Mise à jours des voisins de c"></a>9. Le tas comprend donc maintenant les villes <strong>b</strong>, <strong>e</strong> et <strong>f</strong>. La ville actuelle est <strong>b</strong> avec une distance de <strong>11</strong>. Elle n’a qu’une seule voisine non visitée, <strong>e</strong> qui se trouve à une distance de <strong>9</strong> de <strong>b</strong>. Comme <strong>11 + 9 = 20</strong> est plus petit que l’infini, on met la distance de <strong>e</strong> à jours. On marque <strong>b</strong> comme étant visitée et on la retire du tas.<br><img src="/images/2017/maze/blank.png" alt="">10. Le tas ne comporte plus que les villes <strong>e</strong> et <strong>f</strong>. La ville actuelle est désormais <strong>e</strong>. Comme on a notre destination comme ville actuelle, cela veut dire qu’on a trouvé le chemin le plus court!.<br></details><br><a href="/images/2017/maze/Example5.png = 100x"><img src="/images/2017/maze/Example5.png" alt="Chemin le plus court de notre exemple"></a></p>
 </li>
 </ol>
 <p>Le chemin le plus court pour aller de la ville <strong>a</strong> à la ville <strong>e</strong> est donc</p>
@@ -189,16 +139,16 @@
 <p>a -&gt; c -&gt; b -&gt; e avec une distance de <strong>9 + 2 + 9 = 20</strong></p>
 </blockquote>
 <h1 id="Retour-a-notre-Labyrinthe"><a href="#Retour-a-notre-Labyrinthe" class="headerlink" title="Retour à notre Labyrinthe"></a>Retour à notre Labyrinthe</h1><p>Bien, j’espère que tu as bien pris le temps de comprendre ce qu’on vient de faire!</p>
-<p>On peut enfin revenir à notre labyrinthe.. et ca va aller très vite maintenant!</p>
+<p>On peut enfin revenir à notre labyrinthe, et ça va aller très vite maintenant!</p>
 <p>On peut voir notre labyrinthe comme étant une énorme carte remplie de villes et de routes entre ces villes.</p>
-<p>Voila à quoi il ressemblerait si je l’avais design comme pour l’exemple fait au dessus.</p>
+<p>Voila à quoi il ressemblerait si je l’avais conçu comme pour l’exemple fait au dessus.</p>
 <p><a href="/images/2017/maze/MazeWeight2.png = 100x"><img src="/images/2017/maze/MazeWeight2.png" alt="Graphe de notre labyrinthe"></a></p>
 <p>Il ne reste plus qu’à appliquer notre algorithme de Dijkstra de la même façon que pour l’exemple précédent et…</p>
 <p><a href="/images/2017/maze/MazeSolved.png = 100x"><img src="/images/2017/maze/MazeSolved.png" alt="Solution du labyrinthe"></a></p>
 <p><strong>Tadaaaaa!</strong></p>
-<p>Evidemment sur de petits et simples labytinthes ça semble dérisoir!</p>
-<h1 id="Pour-conclure"><a href="#Pour-conclure" class="headerlink" title="Pour conclure"></a>Pour conclure</h1><p>Il existe pleins d’autres algorithmes permettant de résoudre le même problème! A star, breadth-first, depth-first, etc</p>
-<p>Je ferais surement un bonus plus technique sur ces algorithmes.</p>
+<p>Evidemment sur de petits et simples labyrinthes ça semble dérisoir!</p>
+<h1 id="Pour-conclure"><a href="#Pour-conclure" class="headerlink" title="Pour conclure"></a>Pour conclure</h1><p>Il existe plein d’autres algorithmes permettant de résoudre le même problème! A star, breadth-first, depth-first, etc</p>
+<p>Je ferai sûrement un bonus plus technique sur ces algorithmes.</p>
 <details><br>  <summary>En attendant voici le code comportant l’algorithme de Dijsktra écrit en Python!</summary><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> FibonacciHeap <span class="keyword">import</span> FibHeap</span><br><span class="line"><span class="keyword">from</span> PriorityQueue <span class="keyword">import</span> FibPQ, HeapPQ, QueuePQ</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">solve</span><span class="params">(maze)</span>:</span></span><br><span class="line">    width = maze.width               <span class="comment"># Used for indexing</span></span><br><span class="line">    total = maze.width * maze.height <span class="comment"># Array sizes</span></span><br><span class="line"></span><br><span class="line">    start = maze.start               <span class="comment"># Start node</span></span><br><span class="line">    startPos = start.Position</span><br><span class="line">    end = maze.end                   <span class="comment"># End node</span></span><br><span class="line">    endPos = end.Position</span><br><span class="line"></span><br><span class="line">    visited = [<span class="keyword">False</span>] * total        <span class="comment"># True/False wether a node has already been visited</span></span><br><span class="line"></span><br><span class="line">    prev = [<span class="keyword">None</span>] * total            <span class="comment"># Holds a link to the previous node in the path (used for path construction)</span></span><br><span class="line"></span><br><span class="line">    infinity = float(<span class="string">"inf"</span>)          <span class="comment"># Holds the max value of a float.</span></span><br><span class="line">    distances = [infinity] * total   <span class="comment"># Default value of every node in the graph is infinity</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># unvisited = FibHeap()            # We chose the Fibonnaci Heap for Dijkstra</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Can also be one of the following priority queue</span></span><br><span class="line">    <span class="comment"># unvisited = FibPQ()</span></span><br><span class="line">    unvisited = HeapPQ()</span><br><span class="line">    <span class="comment"># unvisited = QueuePQ()</span></span><br><span class="line"></span><br><span class="line">    nodeIndex = [<span class="keyword">None</span>] * total      <span class="comment"># Holds all priority queue nodes</span></span><br><span class="line"></span><br><span class="line">    distances[start.Position[<span class="number">0</span>] * width + start.Position[<span class="number">1</span>]] = <span class="number">0</span> <span class="comment"># Position[0] holds Y and Position[1] holds X</span></span><br><span class="line">    startNode = FibHeap.Node(<span class="number">0</span>, start)</span><br><span class="line">    nodeIndex[start.Position[<span class="number">0</span>] * width + start.Position[<span class="number">1</span>]] = startNode</span><br><span class="line">    unvisited.insert(startNode)</span><br><span class="line"></span><br><span class="line">    count = <span class="number">0</span>         <span class="comment"># Zero nodes visited</span></span><br><span class="line">    completed = <span class="keyword">False</span> <span class="comment"># Not completed yet</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> len(unvisited) &gt; <span class="number">0</span>:</span><br><span class="line">        count+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        n = unvisited.removeMinimum()</span><br><span class="line"></span><br><span class="line">        current = n.value</span><br><span class="line">        curPos = current.Position</span><br><span class="line">        curPosIndex = curPos[<span class="number">0</span>] * width + curPos[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> distances[curPosIndex] == infinity:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> curPos == endPos:</span><br><span class="line">            completed = <span class="keyword">True</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> v <span class="keyword">in</span> current.Neighbours:</span><br><span class="line">            <span class="keyword">if</span> v != <span class="keyword">None</span>:</span><br><span class="line">                vPos = v.Position</span><br><span class="line">                vPosIndex = vPos[<span class="number">0</span>] * width + vPos[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> visited[vPosIndex] == <span class="keyword">False</span>:</span><br><span class="line">                    manDist = abs(vPos[<span class="number">0</span>] - curPos[<span class="number">0</span>]) + abs(vPos[<span class="number">1</span>] - curPos[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">                    newDistance = distances[curPosIndex] + manDist</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> newDistance &lt; distances[vPosIndex]:</span><br><span class="line">                        vNode = nodeIndex[vPosIndex]</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">if</span> vNode == <span class="keyword">None</span>:</span><br><span class="line">                            vNode = FibHeap.Node(newDistance, v)</span><br><span class="line">                            unvisited.insert(vNode)</span><br><span class="line">                            nodeIndex[vPosIndex] = vNode</span><br><span class="line">                            distances[vPosIndex] = newDistance</span><br><span class="line">                            prev[vPosIndex] = current</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            unvisited.decreaseKey(vNode, newDistance)</span><br><span class="line">                            distances[vPosIndex] = newDistance</span><br><span class="line">                            prev[vPosIndex] = current</span><br><span class="line"></span><br><span class="line">        visited[curPosIndex] = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"></span><br><span class="line">    path = deque()</span><br><span class="line">    current = end</span><br><span class="line">    <span class="keyword">while</span> current != <span class="keyword">None</span>:</span><br><span class="line">        path.appendleft(current)</span><br><span class="line">        current = prev[current.Position[<span class="number">0</span>] * width + current.Position[<span class="number">1</span>]]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> [path, [count, len(path), completed]]</span><br></pre></td></tr></table></figure><br><br>    </details>
 
 <p>L’intégralité du projet est disponible <a href="https://github.com/Donaschmi/Maze-Solving" target="_blank" rel="noopener">sur ce repository.</a></p>
@@ -432,7 +382,7 @@
   
   <div class="sidebar-module">
     <h4>Archives</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/01/">janvier 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/12/">décembre 2017</a><span class="sidebar-module-list-count">3</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/12/">décembre 2017</a><span class="sidebar-module-list-count">3</span></li></ul>
   </div>
 
 
@@ -441,10 +391,6 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
-      
-        <li>
-          <a href="/2018/01/02/Game-of-Life/">Game of Life</a>
-        </li>
       
         <li>
           <a href="/2017/12/13/Maze-Solver2/">Sortir d&#39;un labyrinthe? Partie 2</a>
