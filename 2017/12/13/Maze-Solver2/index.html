@@ -5,6 +5,9 @@
   
   <title>Sortir d&#39;un labyrinthe? Partie 2 | Donatien Schmitz</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Donatien, Schmitz, Donatien's Blog" />
+  
   <meta name="description" content="Algorithme de DijkstraCet algorithme est utilisé PARTOUT de nos jours! Que ce soit sur Google Map, sur les réseaux téléphoniques ou pour trouver le chemin le pl">
 <meta name="keywords" content="labyrinthe,maze,Dijkstra,Python,graphe">
 <meta property="og:type" content="article">
@@ -22,104 +25,132 @@
 <meta property="og:image" content="/images/2017/maze/Example5.png">
 <meta property="og:image" content="/images/2017/maze/MazeWeight2.png">
 <meta property="og:image" content="/images/2017/maze/MazeSolved.png">
-<meta property="og:updated_time" content="2018-01-03T15:12:59.063Z">
+<meta property="og:updated_time" content="2018-01-06T10:56:58.457Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sortir d&#39;un labyrinthe? Partie 2">
 <meta name="twitter:description" content="Algorithme de DijkstraCet algorithme est utilisé PARTOUT de nos jours! Que ce soit sur Google Map, sur les réseaux téléphoniques ou pour trouver le chemin le plus court entre deux routeurs sur un rése">
 <meta name="twitter:image" content="/images/2017/maze/Example.png">
   
-    <link rel="alternate" href="/atom.xml" title="Donatien Schmitz" type="application/atom+xml">
   
+    <link rel="icon" href="/Logo.ico">
   
-    <link rel="icon" href="/css/images/Logo.ico">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
   
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
-
-  <link rel="stylesheet" href="/css/styles.css">
+  
   
 
 </head>
 
 <body>
-  <nav class="navbar navbar-inverse">
-  <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      
-        <a class="navbar-brand" href="/">Donaschmitz</a>
-      
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Donatien&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Donatien&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        Blog d&#39;un étudiant en sciences informatiques
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Donatien Schmitz" target="_blank" href="//donaschmitz.com">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/donaschmi">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
     </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="main-menu-navbar">
-      <ul class="nav navbar-nav">
-        
-          <li><a class=""
-                 href="/index.html">Home</a></li>
-        
-          <li><a class=""
-                 href="/archives/">Archives</a></li>
-        
-      </ul>
-
-      <!--
-      <ul class="nav navbar-nav navbar-right">
-        
-          <li><a href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
-        
-      </ul>
-      -->
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-
-  <div class="container">
-    <div class="blog-header">
-  <h1 class="blog-title">Donatien Schmitz</h1>
-  
-</div>
-
-    <div class="row">
-        <div class="col-sm-8 blog-main">
-          <article id="post-Maze-Solver2" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Maze-Solver2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
   
-    <h1 class="article-title" itemprop="name">
+    <h1 class="post-title" itemprop="name">
       Sortir d&#39;un labyrinthe? Partie 2
     </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Python/">Python</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2017-12-13
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
   
 
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/12/13/Maze-Solver2/" class="article-date"><time datetime="2017-12-13T14:20:31.000Z" itemprop="datePublished">2017-12-13</time></a>
-</div>
-
+          
+      </header>
     
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
+    <div class="article-entry post-content" itemprop="articleBody">
       
-        <h1 id="Algorithme-de-Dijkstra"><a href="#Algorithme-de-Dijkstra" class="headerlink" title="Algorithme de Dijkstra"></a>Algorithme de Dijkstra</h1><p>Cet algorithme est utilisé PARTOUT de nos jours! Que ce soit sur Google Map, sur les réseaux téléphoniques ou pour trouver le chemin le plus court entre deux routeurs sur un réseau.</p>
+            
+            <h1 id="Algorithme-de-Dijkstra"><a href="#Algorithme-de-Dijkstra" class="headerlink" title="Algorithme de Dijkstra"></a>Algorithme de Dijkstra</h1><p>Cet algorithme est utilisé PARTOUT de nos jours! Que ce soit sur Google Map, sur les réseaux téléphoniques ou pour trouver le chemin le plus court entre deux routeurs sur un réseau.</p>
 <p>Pour bien visualiser la chose, je vais utiliser un exemple physique assez simple :</p>
 <blockquote>
 <p>Un ensemble de villes reliées par des routes.</p>
@@ -156,137 +187,252 @@
 <p>Il ne reste plus qu’à appliquer notre algorithme de Dijkstra de la même façon que pour l’exemple précédent et…</p>
 <p><a href="/images/2017/maze/MazeSolved.png = 100x"><img src="/images/2017/maze/MazeSolved.png" alt="Solution du labyrinthe"></a></p>
 <p><strong>Tadaaaaa!</strong></p>
-<p>Evidemment sur de petits et simples labyrinthes ça semble dérisoir!</p>
+<p>Evidemment sur de petits et simples labyrinthes ça semble dérisoire!</p>
 <h1 id="Pour-conclure"><a href="#Pour-conclure" class="headerlink" title="Pour conclure"></a>Pour conclure</h1><p>Il existe plein d’autres algorithmes permettant de résoudre le même problème! A star, breadth-first, depth-first, etc</p>
 <p>Je ferai sûrement un bonus plus technique sur ces algorithmes.</p>
 <details><br>  <summary>En attendant voici le code comportant l’algorithme de Dijsktra écrit en Python!</summary><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> FibonacciHeap <span class="keyword">import</span> FibHeap</span><br><span class="line"><span class="keyword">from</span> PriorityQueue <span class="keyword">import</span> FibPQ, HeapPQ, QueuePQ</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">solve</span><span class="params">(maze)</span>:</span></span><br><span class="line">    width = maze.width               <span class="comment"># Used for indexing</span></span><br><span class="line">    total = maze.width * maze.height <span class="comment"># Array sizes</span></span><br><span class="line"></span><br><span class="line">    start = maze.start               <span class="comment"># Start node</span></span><br><span class="line">    startPos = start.Position</span><br><span class="line">    end = maze.end                   <span class="comment"># End node</span></span><br><span class="line">    endPos = end.Position</span><br><span class="line"></span><br><span class="line">    visited = [<span class="keyword">False</span>] * total        <span class="comment"># True/False wether a node has already been visited</span></span><br><span class="line"></span><br><span class="line">    prev = [<span class="keyword">None</span>] * total            <span class="comment"># Holds a link to the previous node in the path (used for path construction)</span></span><br><span class="line"></span><br><span class="line">    infinity = float(<span class="string">"inf"</span>)          <span class="comment"># Holds the max value of a float.</span></span><br><span class="line">    distances = [infinity] * total   <span class="comment"># Default value of every node in the graph is infinity</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># unvisited = FibHeap()            # We chose the Fibonnaci Heap for Dijkstra</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Can also be one of the following priority queue</span></span><br><span class="line">    <span class="comment"># unvisited = FibPQ()</span></span><br><span class="line">    unvisited = HeapPQ()</span><br><span class="line">    <span class="comment"># unvisited = QueuePQ()</span></span><br><span class="line"></span><br><span class="line">    nodeIndex = [<span class="keyword">None</span>] * total      <span class="comment"># Holds all priority queue nodes</span></span><br><span class="line"></span><br><span class="line">    distances[start.Position[<span class="number">0</span>] * width + start.Position[<span class="number">1</span>]] = <span class="number">0</span> <span class="comment"># Position[0] holds Y and Position[1] holds X</span></span><br><span class="line">    startNode = FibHeap.Node(<span class="number">0</span>, start)</span><br><span class="line">    nodeIndex[start.Position[<span class="number">0</span>] * width + start.Position[<span class="number">1</span>]] = startNode</span><br><span class="line">    unvisited.insert(startNode)</span><br><span class="line"></span><br><span class="line">    count = <span class="number">0</span>         <span class="comment"># Zero nodes visited</span></span><br><span class="line">    completed = <span class="keyword">False</span> <span class="comment"># Not completed yet</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> len(unvisited) &gt; <span class="number">0</span>:</span><br><span class="line">        count+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        n = unvisited.removeMinimum()</span><br><span class="line"></span><br><span class="line">        current = n.value</span><br><span class="line">        curPos = current.Position</span><br><span class="line">        curPosIndex = curPos[<span class="number">0</span>] * width + curPos[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> distances[curPosIndex] == infinity:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> curPos == endPos:</span><br><span class="line">            completed = <span class="keyword">True</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> v <span class="keyword">in</span> current.Neighbours:</span><br><span class="line">            <span class="keyword">if</span> v != <span class="keyword">None</span>:</span><br><span class="line">                vPos = v.Position</span><br><span class="line">                vPosIndex = vPos[<span class="number">0</span>] * width + vPos[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> visited[vPosIndex] == <span class="keyword">False</span>:</span><br><span class="line">                    manDist = abs(vPos[<span class="number">0</span>] - curPos[<span class="number">0</span>]) + abs(vPos[<span class="number">1</span>] - curPos[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">                    newDistance = distances[curPosIndex] + manDist</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> newDistance &lt; distances[vPosIndex]:</span><br><span class="line">                        vNode = nodeIndex[vPosIndex]</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">if</span> vNode == <span class="keyword">None</span>:</span><br><span class="line">                            vNode = FibHeap.Node(newDistance, v)</span><br><span class="line">                            unvisited.insert(vNode)</span><br><span class="line">                            nodeIndex[vPosIndex] = vNode</span><br><span class="line">                            distances[vPosIndex] = newDistance</span><br><span class="line">                            prev[vPosIndex] = current</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            unvisited.decreaseKey(vNode, newDistance)</span><br><span class="line">                            distances[vPosIndex] = newDistance</span><br><span class="line">                            prev[vPosIndex] = current</span><br><span class="line"></span><br><span class="line">        visited[curPosIndex] = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"></span><br><span class="line">    path = deque()</span><br><span class="line">    current = end</span><br><span class="line">    <span class="keyword">while</span> current != <span class="keyword">None</span>:</span><br><span class="line">        path.appendleft(current)</span><br><span class="line">        current = prev[current.Position[<span class="number">0</span>] * width + current.Position[<span class="number">1</span>]]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> [path, [count, len(path), completed]]</span><br></pre></td></tr></table></figure><br><br>    </details>
 
 <p>L’intégralité du projet est disponible <a href="https://github.com/Donaschmi/Maze-Solving" target="_blank" rel="noopener">sur ce repository.</a></p>
 
-      
+            <div class="post-copyright">
+    <div class="content">
+        <p>Posté le: 2018:01:06 11:56</p>
+        <p>Lien direct: <a class="post-url" href="/2017/12/13/Maze-Solver2/" title="Sortir d&#39;un labyrinthe? Partie 2">donaschmitz.com/2017/12/13/Maze-Solver2/</a></p>
+        <footer>
+            <a href="donaschmitz.com">
+                <img src="/images/logo.png" alt="Donatien Schmitz">
+                Donatien Schmitz
+            </a>
+        </footer>
     </div>
+</div>
 
-    
       
+        
+            
 
-    
-
+        
+    </div>
     <footer class="article-footer">
-      <a data-url="donaschmitz.com/2017/12/13/Maze-Solver2/" data-id="cjby3d3e80002122fga9cwfhm" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dijkstra/">Dijkstra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/graphe/">graphe</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/labyrinthe/">labyrinthe</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maze/">maze</a></li></ul>
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=donaschmitz.com/2017/12/13/Maze-Solver2/&title=《Sortir d'un labyrinthe? Partie 2》 — Donatien Schmitz&pic=/../../../images/banner.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=donaschmitz.com/2017/12/13/Maze-Solver2/&title=《Sortir d'un labyrinthe? Partie 2》 — Donatien Schmitz&source=Blog de Donatien Schmitz" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=donaschmitz.com/2017/12/13/Maze-Solver2/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Sortir d'un labyrinthe? Partie 2》 — Donatien Schmitz&url=donaschmitz.com/2017/12/13/Maze-Solver2/&via=donaschmitz.com" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=donaschmitz.com/2017/12/13/Maze-Solver2/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=donaschmitz.com/2017/12/13/Maze-Solver2/" alt="微信分享二维码">
+</div>
 
+<div class="mask"></div>
 
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/labyrinthe/" class="color1">labyrinthe</a>
+      
+    <a href="/tags/maze/" class="color5">maze</a>
+      
+    <a href="/tags/Dijkstra/" class="color4">Dijkstra</a>
+      
+    <a href="/tags/Python/" class="color2">Python</a>
+      
+    <a href="/tags/graphe/" class="color2">graphe</a>
+      
+  </li>
+
+        </ul>
+        
     </footer>
   </div>
-  
-    
-<ul id="article-nav" class="nav nav-pills nav-justified">
-  
-  <li role="presentation">
-    <a href="/2017/12/07/Maze-Solver/" id="article-nav-older" class="article-nav-link-wrap">
-      <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">Sortir d&#39;un labyrinthe? Partie 1</span>
-    </a>
-  </li>
-  
-  
-</ul>
-
-
-  
 </article>
 
 
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Algorithme-de-Dijkstra"><span class="post-toc-text">Algorithme de Dijkstra</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Resolution-de-l’exemple"><span class="post-toc-text">Résolution de l’exemple</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Retour-a-notre-Labyrinthe"><span class="post-toc-text">Retour à notre Labyrinthe</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Pour-conclure"><span class="post-toc-text">Pour conclure</span></a></li></ol>
+        </nav>
+    </aside>
+    
 
-
-        </div>
-        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-          
-  <div class="sidebar-module sidebar-module-inset">
-  <h4>About</h4>
-  <p>Etudiant en <em>sciences informatiques</em> à l'EPL, Louvain-la-Neuve. Friand de programmation, principalement C, Python et Java. Toujours plus curieux.</p>
-
-</div>
-
-
+<nav id="article-nav">
   
-
-
   
-  <div class="sidebar-module">
-    <h4>Tags</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Dijkstra/">Dijkstra</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Python/">Python</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/first/">first</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/graphe/">graphe</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/hello/">hello</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/labyrinthe/">labyrinthe</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/maze/">maze</a><span class="sidebar-module-list-count">2</span></li></ul>
-  </div>
-
-
-
+    <a href="/2017/12/07/Maze-Solver/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Sortir d&#39;un labyrinthe? Partie 1</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
   
-  <div class="sidebar-module">
-    <h4>Tag Cloud</h4>
-    <p class="tagcloud">
-      <a href="/tags/Dijkstra/" style="font-size: 20px;">Dijkstra</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/first/" style="font-size: 10px;">first</a> <a href="/tags/graphe/" style="font-size: 20px;">graphe</a> <a href="/tags/hello/" style="font-size: 10px;">hello</a> <a href="/tags/labyrinthe/" style="font-size: 20px;">labyrinthe</a> <a href="/tags/maze/" style="font-size: 20px;">maze</a>
-    </p>
-  </div>
-
-
-  
-  <div class="sidebar-module">
-    <h4>Archives</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/12/">décembre 2017</a><span class="sidebar-module-list-count">3</span></li></ul>
-  </div>
+</nav>
 
 
 
-  
-  <div class="sidebar-module">
-    <h4>Recents</h4>
-    <ul class="sidebar-module-list">
-      
-        <li>
-          <a href="/2017/12/13/Maze-Solver2/">Sortir d&#39;un labyrinthe? Partie 2</a>
-        </li>
-      
-        <li>
-          <a href="/2017/12/07/Maze-Solver/">Sortir d&#39;un labyrinthe? Partie 1</a>
-        </li>
-      
-        <li>
-          <a href="/2017/12/07/Hello-World/">Hello World !</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-
-        </div>
-    </div>
-  </div>
-  <footer class="blog-footer">
-  <div class="container">
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
     <div id="footer-info" class="inner">
+      
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
       &copy; 2018 Donatien Schmitz<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </p>
     </div>
   </div>
 </footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "donaschmitz.com",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 0
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/First/">First</a><a class="category-link" href="/categories/Python/">Python</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Dijkstra/" style="font-size: 20px;">Dijkstra</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/first/" style="font-size: 10px;">first</a> <a href="/tags/graphe/" style="font-size: 20px;">graphe</a> <a href="/tags/hello/" style="font-size: 10px;">hello</a> <a href="/tags/labyrinthe/" style="font-size: 20px;">labyrinthe</a> <a href="/tags/maze/" style="font-size: 20px;">maze</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Dijkstra/" style="font-size: 20px;">Dijkstra</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/first/" style="font-size: 10px;">first</a> <a href="/tags/graphe/" style="font-size: 20px;">graphe</a> <a href="/tags/hello/" style="font-size: 10px;">hello</a> <a href="/tags/labyrinthe/" style="font-size: 20px;">labyrinthe</a> <a href="/tags/maze/" style="font-size: 20px;">maze</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
 
-  
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
 
 
-<script src="/js/script.js"></script>
 
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
 </body>
 </html>
