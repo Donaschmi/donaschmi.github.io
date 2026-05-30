@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donatien Schmitz — Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sidebar-bg: #0a0f1e;
+    --main-bg:    #f8fafc;
+    --card:       #ffffff;
+    --border:     #e2e8f0;
+    --green:      #10b981;
+    --green-pale: #ecfdf5;
+    --blue:       #2563eb;
+    --blue-pale:  #eff6ff;
+    --orange:     #f59e0b;
+    --text:       #0f172a;
+    --muted:      #64748b;
+    --sidebar-w:  260px;
+    --r:          8px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px;
+    background: var(--main-bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  code, .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .82em;
+    background: #f1f5f9;
+    padding: .1em .35em;
+    border-radius: 4px;
+    color: #475569;
+  }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ══════════════════════════════
+     LAYOUT
+  ══════════════════════════════ */
+  .layout { display:flex; align-items:flex-start; min-height:100vh; }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: var(--sidebar-w);
+    min-width: var(--sidebar-w);
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    background: var(--sidebar-bg);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem 1.6rem;
+    overflow-y: auto;
+  }
+
+  .profile-ring {
+    position: relative; width: 76px; height: 76px;
+  }
+  .profile-ring::before {
+    content: ''; position: absolute; inset: -2px; border-radius: 50%;
+    background: linear-gradient(135deg, #10b981, #2563eb);
+  }
+  .profile-ring img {
+    position: relative; width: 76px; height: 76px;
+    border-radius: 50%; object-fit: cover;
+    border: 3px solid var(--sidebar-bg); display: block; z-index: 1;
+  }
+
+  .profile-name  { font-size: .92rem; font-weight: 700; color: #f1f5f9; margin-top: .7rem; }
+  .profile-role  { font-size: .72rem; color: #64748b; line-height: 1.55; margin-top: .2rem; }
+
+  .status-dot {
+    display: inline-flex; align-items: center; gap: .4rem;
+    margin-top: .5rem;
+    font-size: .68rem; font-weight: 600; color: #10b981; letter-spacing: .03em;
+  }
+  .status-dot::before {
+    content: '';
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 0 2px rgba(16,185,129,.2);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{box-shadow:0 0 0 2px rgba(16,185,129,.2)} 50%{box-shadow:0 0 0 5px rgba(16,185,129,.08)} }
+
+  nav { display:flex; flex-direction:column; gap:2px; }
+  nav a {
+    display:flex; align-items:center; gap:.55rem;
+    padding:.42rem .7rem; border-radius:6px;
+    font-size:.82rem; color:#64748b; font-weight:500;
+    transition:.15s; text-decoration:none;
+  }
+  nav a .icon { font-size:.9rem; width:16px; text-align:center; flex-shrink:0; }
+  nav a:hover       { background:rgba(255,255,255,.04); color:#cbd5e1; }
+  nav a.active      { background:rgba(16,185,129,.1); color:#6ee7b7; }
+
+  /* availability badge */
+  .avail-box {
+    margin-top: auto;
+    padding: .8rem 1rem;
+    background: rgba(16,185,129,.07);
+    border: 1px solid rgba(16,185,129,.18);
+    border-radius: 8px;
+    font-size: .72rem; color: #6ee7b7; line-height: 1.6;
+  }
+  .avail-box strong { color: #a7f3d0; display:block; margin-bottom:.2rem; }
+
+  .social {
+    padding-top: 1rem; border-top: 1px solid #1e293b;
+    display:flex; flex-direction:column; gap:.4rem;
+  }
+  .social a { display:flex; align-items:center; gap:.45rem; font-size:.72rem; color:#475569; text-decoration:none; transition:.15s; }
+  .social a:hover { color:#6ee7b7; }
+  .social svg { width:12px; height:12px; flex-shrink:0; }
+
+  /* ── Main ── */
+  main { flex:1; min-width:0; margin-left:var(--sidebar-w); padding:3.5rem 4rem 8rem; }
+  section { margin-bottom:5rem; scroll-margin-top:2rem; }
+
+  .reveal { opacity:0; transform:translateY(24px); transition:opacity .65s ease,transform .65s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  .section-head { margin-bottom:1.75rem; }
+  .section-num {
+    display:block; font-family:'Space Grotesk',sans-serif;
+    font-size:4rem; font-weight:800; line-height:1;
+    color:#e2e8f0; letter-spacing:-0.04em;
+    margin-bottom:-.35rem; user-select:none;
+  }
+  h2 {
+    font-family:'Space Grotesk',sans-serif;
+    font-size:1.55rem; font-weight:800;
+    letter-spacing:-0.02em; color:var(--text);
+    padding-bottom:.6rem;
+    border-bottom:2px solid var(--border);
+  }
+  h3 { font-size:.7rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); margin-bottom:.9rem; }
+  p { color:var(--muted); margin-bottom:1rem; }
+  p:last-child { margin-bottom:0; }
+
+  /* ── Hero / About ── */
+  .hero-headline {
+    font-family:'Space Grotesk',sans-serif;
+    font-size:1.15rem; font-weight:700; color:var(--text);
+    line-height:1.5; margin-bottom:.75rem;
+  }
+  .hero-headline span { color:var(--green); }
+  .about-lead { font-size:.96rem; color:#334155; line-height:1.85; margin-bottom:1rem; }
+  .about-lead a { color:var(--blue); }
+
+  /* ── Skills grid ── */
+  .skills-categories { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; margin-top:.5rem; }
+  .skill-cat {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:var(--r); padding:1rem 1.1rem;
+    transition:border-color .2s;
+  }
+  .skill-cat:hover { border-color:rgba(16,185,129,.3); }
+  .skill-cat-label {
+    font-size:.65rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--green); margin-bottom:.6rem; display:flex; align-items:center; gap:.35rem;
+  }
+  .skill-cat-label .cat-icon { font-size:.85rem; }
+  .tag-row { display:flex; flex-wrap:wrap; gap:.3rem; }
+  .tag {
+    font-size:.7rem; padding:.2rem .55rem; border-radius:4px;
+    background:#f8fafc; border:1px solid var(--border);
+    color:#475569; font-weight:500; transition:.15s; cursor:default;
+  }
+  .tag:hover { border-color:rgba(16,185,129,.4); color:#059669; background:var(--green-pale); }
+  .tag.hot { background:var(--green-pale); border-color:rgba(16,185,129,.3); color:#059669; font-weight:600; }
+
+  /* ── Project cards ── */
+  .project-grid { display:grid; grid-template-columns:1fr 1fr; gap:.9rem; }
+  .project-card {
+    padding:1.3rem; background:var(--card);
+    border:1px solid var(--border); border-radius:var(--r);
+    transition:border-color .2s, transform .2s, box-shadow .2s;
+    display:flex; flex-direction:column;
+  }
+  .project-card:hover { border-color:rgba(16,185,129,.25); transform:translateY(-2px); box-shadow:0 6px 24px rgba(0,0,0,.06); }
+  .project-card.full { grid-column:1/-1; }
+
+  .project-header { display:flex; align-items:flex-start; justify-content:space-between; gap:.5rem; margin-bottom:.5rem; }
+  .project-title  { font-size:.92rem; font-weight:700; color:var(--text); }
+  .project-badge  {
+    font-size:.63rem; padding:.12rem .5rem; border-radius:20px; white-space:nowrap; flex-shrink:0;
+    background:var(--green-pale); border:1px solid rgba(16,185,129,.2); color:#059669; font-weight:600;
+  }
+  .project-badge.blue  { background:var(--blue-pale); border-color:rgba(37,99,235,.2); color:var(--blue); }
+  .project-badge.amber { background:#fffbeb; border-color:rgba(245,158,11,.25); color:#b45309; }
+  .project-desc { font-size:.81rem; color:var(--muted); line-height:1.65; margin-bottom:.8rem; flex:1; }
+
+  .proj-links { display:flex; gap:.4rem; flex-wrap:wrap; margin-top:auto; }
+  .proj-link {
+    font-size:.71rem; padding:.15rem .5rem; border-radius:4px;
+    border:1px solid var(--border); color:var(--muted);
+    display:inline-flex; align-items:center; gap:.3rem;
+    text-decoration:none; transition:.15s;
+  }
+  .proj-link:hover { border-color:rgba(16,185,129,.4); color:#059669; text-decoration:none; }
+  .proj-link svg { width:10px; height:10px; }
+
+  /* ── Experience timeline ── */
+  .timeline { position:relative; padding-left:1.5rem; }
+  .timeline::before {
+    content:''; position:absolute; left:4px; top:8px; bottom:4px;
+    width:1px; background:linear-gradient(180deg,var(--border),transparent);
+  }
+  .tl-item { position:relative; padding-bottom:2rem; }
+  .tl-item:last-child { padding-bottom:0; }
+  .tl-item::before {
+    content:''; position:absolute; left:-1.375rem; top:7px;
+    width:8px; height:8px; border-radius:50%;
+    background:var(--green); border:2px solid #fff; outline:1.5px solid var(--green);
+  }
+  .tl-header { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:.2rem; }
+  .tl-title  { font-size:.9rem; font-weight:700; color:var(--text); }
+  .tl-date   { font-size:.71rem; font-weight:600; color:var(--green); white-space:nowrap; }
+  .tl-org    { font-size:.79rem; color:var(--muted); margin-bottom:.5rem; }
+  .tl-bullets { list-style:none; padding:0; display:flex; flex-direction:column; gap:.35rem; }
+  .tl-bullets li {
+    font-size:.8rem; color:var(--muted); line-height:1.6;
+    padding-left:1rem; position:relative;
+  }
+  .tl-bullets li::before {
+    content:'›'; position:absolute; left:0; color:var(--green); font-weight:700;
+  }
+
+  /* ── CV section ── */
+  .cv-btn {
+    display:inline-flex; align-items:center; gap:.45rem;
+    padding:.52rem 1.15rem;
+    background:var(--green); color:#fff;
+    border-radius:7px; font-size:.8rem; font-weight:600;
+    margin-bottom:1.85rem; text-decoration:none; transition:.18s;
+    box-shadow:0 2px 12px rgba(16,185,129,.3);
+  }
+  .cv-btn:hover { background:#059669; transform:translateY(-1px); text-decoration:none; }
+
+  /* ── Publications (condensed) ── */
+  .pub-list-compact { display:flex; flex-direction:column; gap:.5rem; }
+  .pub-compact {
+    display:flex; align-items:baseline; gap:.7rem;
+    padding:.7rem 1rem; background:var(--card);
+    border:1px solid var(--border); border-radius:6px;
+    font-size:.8rem; transition:border-color .2s;
+  }
+  .pub-compact:hover { border-color:rgba(16,185,129,.2); }
+  .pub-compact-venue {
+    font-size:.66rem; font-weight:700; letter-spacing:.04em;
+    background:#f1f5f9; color:var(--muted);
+    padding:.1rem .4rem; border-radius:3px; white-space:nowrap; flex-shrink:0;
+  }
+  .pub-compact-title { color:#334155; flex:1; line-height:1.4; }
+  .pub-compact-link  { font-size:.72rem; color:var(--green); white-space:nowrap; flex-shrink:0; }
+  .pub-compact-link:hover { text-decoration:underline; }
+
+  /* ── Responsive ── */
+  @media (max-width:900px) { .skills-categories{grid-template-columns:1fr} .project-grid{grid-template-columns:1fr} .project-card.full{grid-column:1} }
+  @media (max-width:700px) {
+    .sidebar { position:relative; width:100%; height:auto; flex-direction:row; flex-wrap:wrap; padding:1.5rem; gap:1rem; border-bottom:1px solid #1e293b; }
+    .avail-box,.social { display:none; }
+    nav { flex-direction:row; flex-wrap:wrap; }
+    main { margin-left:0; padding:2rem 1.25rem 5rem; }
+    .layout { flex-direction:column; }
+  }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ══════════ SIDEBAR ══════════ -->
+  <aside class="sidebar">
+    <div>
+      <div class="profile-ring">
+        <img src="profile_picture_zoomed.jpeg" alt="Donatien Schmitz" onerror="this.style.display='none'" />
+      </div>
+      <div class="profile-name">Donatien Schmitz</div>
+      <div class="profile-role">Software Engineer<br>Backend · DevOps · Systems</div>
+      <div class="status-dot">Open to opportunities</div>
+    </div>
+
+    <nav id="sb-nav">
+      <a href="#about"      class="active"><span class="icon">👤</span>About</a>
+      <a href="#skills">              <span class="icon">⚡</span>Skills</a>
+      <a href="#projects">            <span class="icon">🔧</span>Projects</a>
+      <a href="#experience">          <span class="icon">💼</span>Experience</a>
+      <a href="#publications">        <span class="icon">📄</span>Research</a>
+      <a href="#cv">                  <span class="icon">📥</span>CV</a>
+    </nav>
+
+    <div class="avail-box">
+      <strong>📍 Belgium / Remote</strong>
+      PhD completed May 2026 — actively looking for software engineering, DevOps, or platform roles.
+    </div>
+
+    <div class="social">
+      <a href="https://github.com/donaschmi" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+        donaschmi
+      </a>
+      <a href="https://www.linkedin.com/in/donatien-schmitz-a34039116/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        schmitzdonatien [at] gmail [dot] com
+      </a>
+    </div>
+  </aside>
+
+  <!-- ══════════ MAIN ══════════ -->
+  <main>
+
+    <!-- About -->
+    <section id="about">
+      <div class="section-head reveal">
+        <span class="section-num">01</span>
+        <h2>About</h2>
+      </div>
+      <div class="reveal">
+        <p class="hero-headline">
+          I build <span>distributed systems, data pipelines, and developer tooling</span> — and I ship things that run in production.
+        </p>
+        <p class="about-lead">
+          I'm a software engineer with a background in distributed stream processing, DevOps, and full-stack development. I recently completed my PhD at <a href="https://uclouvain.be" target="_blank">UCLouvain</a>, where I designed and implemented systems for fine-grain resource management on top of <strong>Apache Flink</strong> and <strong>Apache Kafka</strong> — not just papers, but working software running on real production workloads.
+        </p>
+        <p class="about-lead">
+          Before that, I co-founded <strong>Read&amp;Rate</strong> as CTO (2017–2021), building a web application from scratch and managing all engineering and infrastructure. I currently work as a software engineer at <strong>UCLouvain's LIMe Lab</strong>, contributing to open-source clinical data platforms at the intersection of CS and healthcare.
+        </p>
+        <p class="about-lead">
+          I care about clean systems design, observable infrastructure, and code that other engineers can actually maintain.
+        </p>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="section-head reveal">
+        <span class="section-num">02</span>
+        <h2>Skills</h2>
+      </div>
+      <div class="reveal">
+        <div class="skills-categories">
+
+          <div class="skill-cat">
+            <div class="skill-cat-label"><span class="cat-icon">🖥</span>Languages</div>
+            <div class="tag-row">
+              <span class="tag hot">Python</span>
+              <span class="tag hot">Java</span>
+              <span class="tag">Scala</span>
+              <span class="tag">PHP</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">Bash</span>
+              <span class="tag">SQL</span>
+            </div>
+          </div>
+
+          <div class="skill-cat">
+            <div class="skill-cat-label"><span class="cat-icon">⚙️</span>Distributed Systems &amp; Streaming</div>
+            <div class="tag-row">
+              <span class="tag hot">Apache Flink</span>
+              <span class="tag hot">Apache Kafka</span>
+              <span class="tag">Stream Processing</span>
+              <span class="tag">Elastic Scaling</span>
+              <span class="tag">Resource Management</span>
+              <span class="tag">Data Lakes</span>
+            </div>
+          </div>
+
+          <div class="skill-cat">
+            <div class="skill-cat-label"><span class="cat-icon">🐳</span>Infrastructure &amp; DevOps</div>
+            <div class="tag-row">
+              <span class="tag hot">Docker</span>
+              <span class="tag hot">Kubernetes</span>
+              <span class="tag">Helm</span>
+              <span class="tag">CI/CD</span>
+              <span class="tag">GitHub Actions</span>
+              <span class="tag">Envoy Proxy</span>
+              <span class="tag">Linux</span>
+              <span class="tag">Grid5000</span>
+            </div>
+          </div>
+
+          <div class="skill-cat">
+            <div class="skill-cat-label"><span class="cat-icon">🔬</span>Observability &amp; Tooling</div>
+            <div class="tag-row">
+              <span class="tag hot">Jupyter Notebooks</span>
+              <span class="tag hot">Papermill</span>
+              <span class="tag">Prometheus</span>
+              <span class="tag">Grafana</span>
+              <span class="tag">Benchmarking</span>
+              <span class="tag">Profiling</span>
+            </div>
+          </div>
+
+          <div class="skill-cat">
+            <div class="skill-cat-label"><span class="cat-icon">🌐</span>Backend &amp; Web</div>
+            <div class="tag-row">
+              <span class="tag hot">Laravel / PHP</span>
+              <span class="tag">REST APIs</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">OpenMRS</span>
+              <span class="tag">FHIR / HL7</span>
+            </div>
+          </div>
+
+          <div class="skill-cat">
+            <div class="skill-cat-label"><span class="cat-icon">🤝</span>Soft &amp; Process</div>
+            <div class="tag-row">
+              <span class="tag">Technical Leadership</span>
+              <span class="tag">Startup CTO</span>
+              <span class="tag">Mentoring</span>
+              <span class="tag">Open Source</span>
+              <span class="tag">Academic Writing</span>
+              <span class="tag">French · English</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <div class="section-head reveal">
+        <span class="section-num">03</span>
+        <h2>Projects</h2>
+      </div>
+      <div class="reveal">
+        <div class="project-grid">
+
+          <div class="project-card">
+            <div class="project-header">
+              <div class="project-title">Justin — Elastic Flink Scaler</div>
+              <span class="project-badge">Systems · Java</span>
+            </div>
+            <p class="project-desc">Built a hybrid CPU/memory auto-scaling system for Apache Flink jobs. Justin monitors per-operator resource usage and dynamically resizes task slots without pipeline restarts, achieving significant resource savings on real production workloads.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.6rem;">
+              <span style="display:inline-flex;align-items:center;gap:.3rem;font-size:.67rem;font-weight:700;padding:.17rem .5rem;border-radius:20px;background:#fefce8;border:1px solid #fde047;color:#854d0e;">🏆 IFIP DAIS'25 Best Paper</span>
+              <span style="display:inline-flex;align-items:center;gap:.3rem;font-size:.67rem;font-weight:700;padding:.17rem .5rem;border-radius:20px;background:#fefce8;border:1px solid #fde047;color:#854d0e;">🏆 IFIP DisCoTec'25 Best Paper</span>
+            </div>
+            <div class="tag-row" style="margin-bottom:.7rem">
+              <span class="tag">Apache Flink</span><span class="tag">Java</span><span class="tag">Kubernetes</span><span class="tag">Resource Mgmt</span>
+            </div>
+            <div class="proj-links">
+              <a class="proj-link" href="https://github.com/CloudLargeScale-UCLouvain/flink-justin" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+                GitHub
+              </a>
+              <a class="proj-link" href="publications/justin.pdf" target="_blank">📄 Paper (DAIS '25)</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-header">
+              <div class="project-title">Charon — Multi-Query Scheduler</div>
+              <span class="project-badge">Systems · Java</span>
+            </div>
+            <p class="project-desc">Designed and implemented a fine-grain resource allocator and task placement optimizer for multi-query Flink deployments. Charon minimises resource interference between co-located jobs using a bin-packing-style scheduler with live telemetry feedback.</p>
+            <div class="tag-row" style="margin-bottom:.7rem">
+              <span class="tag">Apache Flink</span><span class="tag">Scheduling</span><span class="tag">Java</span><span class="tag">Kubernetes</span>
+            </div>
+            <div class="proj-links">
+              <a class="proj-link" href="https://github.com/CloudLargeScale-UCLouvain/charon" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+                GitHub
+              </a>
+              <a class="proj-link" href="publications/charon.pdf" target="_blank">📄 Paper (SAC '26)</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-header">
+              <div class="project-title">Alloy — Transparent Storage Proxy</div>
+              <span class="project-badge">Systems · Envoy</span>
+            </div>
+            <p class="project-desc">Built a transparent proxy layer (on top of Envoy) that decouples Apache Flink pipelines from their storage backends. Alloy intercepts storage calls without pipeline modifications, enabling hot-swapping of backends and seamless A/B testing of storage systems.</p>
+            <div class="tag-row" style="margin-bottom:.7rem">
+              <span class="tag">Envoy Proxy</span><span class="tag">Apache Flink</span><span class="tag">Apache Kafka</span><span class="tag">Go</span>
+            </div>
+            <div class="proj-links">
+              <a class="proj-link" href="https://github.com/CloudLargeScale-UCLouvain/alloy" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+                GitHub
+              </a>
+              <a class="proj-link" href="publications/alloy.pdf" target="_blank">📄 Paper (DEBS '26)</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-header">
+              <div class="project-title">StreamBed — Capacity Planner</div>
+              <span class="project-badge">Tools · Python</span>
+            </div>
+            <p class="project-desc">Built a capacity planning tool for stream processing clusters. StreamBed takes workload characterization data (from Kafka/Flink telemetry) and predicts resource requirements, enabling operators to provision clusters proactively rather than reactively.</p>
+            <div class="tag-row" style="margin-bottom:.7rem">
+              <span class="tag">Python</span><span class="tag">Apache Kafka</span><span class="tag">Apache Flink</span><span class="tag">Modelling</span>
+            </div>
+            <div class="proj-links">
+              <a class="proj-link" href="https://github.com/CloudLargeScale-UCLouvain/StreamBed" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+                GitHub
+              </a>
+              <a class="proj-link" href="publications/streambed.pdf" target="_blank">📄 Paper (DEBS '24)</a>
+            </div>
+          </div>
+
+          <div class="project-card full">
+            <div class="project-header">
+              <div class="project-title">Read&amp;Rate — Publishing Platform (CTO &amp; Co-founder)</div>
+              <span class="project-badge amber">Startup · 2017–2021</span>
+            </div>
+            <p class="project-desc">Built from scratch a web application for a community-driven publishing house. As CTO and co-founder, I made all architectural decisions, owned the full stack (Laravel/PHP backend, MySQL, frontend), managed deployments, and grew the platform alongside two co-founders. Responsible for everything from domain modelling to server provisioning.</p>
+            <div class="tag-row">
+              <span class="tag">PHP</span><span class="tag">Laravel</span><span class="tag">MySQL</span><span class="tag">JavaScript</span><span class="tag">Linux / VPS</span><span class="tag">Product Ownership</span><span class="tag">Team Management</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+      <div class="section-head reveal">
+        <span class="section-num">04</span>
+        <h2>Experience</h2>
+      </div>
+      <div class="reveal">
+        <div class="timeline">
+
+          <div class="tl-item">
+            <div class="tl-header">
+              <div class="tl-title">Software Engineer — Post-Doctoral Researcher</div>
+              <div class="tl-date">Mar 2026 – Present</div>
+            </div>
+            <div class="tl-org">UCLouvain · LIMe Lab (Sébastien Jodogne) · Belgium</div>
+            <ul class="tl-bullets">
+              <li>Engineering software solutions at the intersection of computer science and healthcare.</li>
+              <li>Contributing to open-source clinical data platforms (OpenMRS), integrating medical standards such as FHIR/HL7.</li>
+              <li>Applying DevOps practices to research infrastructure: containerised deployments, CI/CD pipelines.</li>
+            </ul>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-header">
+              <div class="tl-title">PhD Researcher — Distributed Systems Engineer</div>
+              <div class="tl-date">2021 – 2026</div>
+            </div>
+            <div class="tl-org">UCLouvain · ICTEAM · Belgium</div>
+            <ul class="tl-bullets">
+              <li>Designed and implemented <strong>Justin</strong>, <strong>Charon</strong>, <strong>Alloy</strong>, and <strong>StreamBed</strong> — production-grade systems for resource management on Apache Flink/Kafka clusters.</li>
+              <li>Ran large-scale experiments on Grid5000 and Kubernetes; built reproducible benchmark pipelines with Jupyter and Papermill.</li>
+              <li>Teaching Assistant for <em>Cloud Computing</em> and <em>Multicore Programming</em> — redesigned practicals to incorporate modern DevOps tooling.</li>
+              <li>Collaborated with Digazu (industry partner) to characterize a real-world data lake workload at scale.</li>
+            </ul>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-header">
+              <div class="tl-title">CTO &amp; Co-founder</div>
+              <div class="tl-date">2017 – 2021</div>
+            </div>
+            <div class="tl-org">Read&amp;Rate · Belgium</div>
+            <ul class="tl-bullets">
+              <li>Built and maintained the entire technical stack for a community-driven publishing startup from day one.</li>
+              <li>Led product decisions, engineering hiring, and all infrastructure management.</li>
+              <li>Delivered a full web platform (Laravel/PHP + MySQL) serving an active user community.</li>
+            </ul>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-header">
+              <div class="tl-title">Treasurer</div>
+              <div class="tl-date">2026</div>
+            </div>
+            <div class="tl-org">Revue des Ingénieurs</div>
+            <ul class="tl-bullets">
+              <li>Managed financial operations of a cultural student project with ~€50,000 annual cashflow.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Research (condensed) -->
+    <section id="publications">
+      <div class="section-head reveal">
+        <span class="section-num">05</span>
+        <h2>Research &amp; Publications</h2>
+      </div>
+      <div class="reveal">
+        <p style="margin-bottom:1rem">The systems above were published at peer-reviewed venues. Full list on <a href="https://scholar.google.com/citations?user=J3H3a0cAAAAJ&hl=en" target="_blank">Google Scholar</a>.</p>
+        <div class="pub-list-compact">
+          <div class="pub-compact">
+            <span class="pub-compact-venue">DEBS '26</span>
+            <span class="pub-compact-title">Alloy: Transparent Proxy-Based Coupling Between Stream Processing and Storage</span>
+            <a class="pub-compact-link" href="publications/alloy.pdf" target="_blank">PDF →</a>
+          </div>
+          <div class="pub-compact">
+            <span class="pub-compact-venue">SAC '26</span>
+            <span class="pub-compact-title">Charon: Fine-Grain Resource Allocation and Optimized Task Placement for Multi-Query DSP</span>
+            <a class="pub-compact-link" href="publications/charon.pdf" target="_blank">PDF →</a>
+          </div>
+          <div class="pub-compact" style="flex-wrap:wrap;gap:.4rem;">
+            <span class="pub-compact-venue">DAIS '25</span>
+            <span class="pub-compact-title">Justin: Hybrid CPU/Memory Elastic Scaling for Distributed Stream Processing</span>
+            <a class="pub-compact-link" href="publications/justin.pdf" target="_blank">PDF →</a>
+            <div style="width:100%;display:flex;gap:.35rem;padding-top:.3rem;">
+              <span style="font-size:.65rem;font-weight:700;padding:.15rem .45rem;border-radius:20px;background:#fefce8;border:1px solid #fde047;color:#854d0e;">🏆 IFIP DAIS'25 Best Paper</span>
+              <span style="font-size:.65rem;font-weight:700;padding:.15rem .45rem;border-radius:20px;background:#fefce8;border:1px solid #fde047;color:#854d0e;">🏆 IFIP DisCoTec'25 Best Paper</span>
+            </div>
+          </div>
+          <div class="pub-compact">
+            <span class="pub-compact-venue">DEBS '25</span>
+            <span class="pub-compact-title">A Tale of Many Streams: Characterizing a Production Workload in Digazu</span>
+            <a class="pub-compact-link" href="publications/digazu.pdf" target="_blank">PDF →</a>
+          </div>
+          <div class="pub-compact">
+            <span class="pub-compact-venue">DEBS '24</span>
+            <span class="pub-compact-title">StreamBed: Capacity Planning for Stream Processing</span>
+            <a class="pub-compact-link" href="publications/streambed.pdf" target="_blank">PDF →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CV -->
+    <section id="cv">
+      <div class="section-head reveal">
+        <span class="section-num">06</span>
+        <h2>CV</h2>
+      </div>
+      <div class="reveal">
+        <a class="cv-btn" href="engineer-cv.pdf" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download Engineer CV (PDF)
+        </a>
+        <p style="font-size:.82rem">Education: PhD Computer Science &amp; Engineering, UCLouvain (2021–2026) · Master CS (Security &amp; Networks) 2021 · Bachelor CS (Minor: Entrepreneurship) 2019.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+/* Scroll reveals */
+(function(){
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const sibs=[...e.target.parentElement.querySelectorAll('.reveal')];
+      setTimeout(()=>e.target.classList.add('visible'), sibs.indexOf(e.target)*75);
+      obs.unobserve(e.target);
+    });
+  },{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+})();
+
+/* Active nav */
+(function(){
+  const secs  = document.querySelectorAll('main section[id]');
+  const links = document.querySelectorAll('#sb-nav a');
+  secs.forEach(s=>
+    new IntersectionObserver(es=>{
+      es.forEach(e=>{ if(e.isIntersecting) links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id)); });
+    },{rootMargin:'-25% 0px -65% 0px'}).observe(s)
+  );
+})();
+</script>
+</body>
+</html>
